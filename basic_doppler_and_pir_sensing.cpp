@@ -71,6 +71,16 @@ void loop() {
   // update current smartPost structure using sensed data
   updatePostData();
 
+  // print the current motion status to Serial monitor
+  printMotionStatus();
+}
+
+
+/* Function: printMotionStatus
+ *    Outputs the current detection status to the Serial console.
+ */
+void printMotionStatus(void) {
+
   if (IRMotion && dopplerMotionDetected) {
     Serial.println("Motion was definitely detected! Both PIR and doppler were alerted!");
   }
