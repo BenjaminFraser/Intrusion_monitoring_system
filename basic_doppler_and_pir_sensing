@@ -1,4 +1,19 @@
-
+/*************************************************************************
+ * Intrusion Monitoring System node:                                     *
+ *      A program to operate as a remote node that senses both passive   *
+ *      infrared (PIR) and X-Band Radar Doppler data to reliably         *
+ *      detect nearby motion.                                            *
+ *                                                                       *
+ * Usage:                                                                *
+ *      This program is specifically designed for use with the Arduino   *
+ *      UNO microcontroller, a custom built HB100 doppler motion         *
+ *      detector, and a passive IR motion sensing module.                *
+ *                                                                       *
+ *      Author: Sgt. B.D. Fraser                                         *
+ *                                                                       *
+ *        Last modified: 22/06/2017                                      *
+ *                                                                       *
+ *************************************************************************/
 
 // Freq Measure lib - uses digital pin 8 of Arduino Uno for measurement
 #include <FreqMeasure.h>
