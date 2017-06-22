@@ -68,8 +68,8 @@ void loop() {
   // sense current environment conditions for IR motion and doppler motion
   senseAndDelay(250);
 
-  // update current smartPost structure using sensed data
-  updatePostData();
+  // update current node status using sensed data
+  updateNodeData();
 
   // print the current motion status to Serial monitor
   printMotionStatus();
@@ -100,10 +100,9 @@ void printMotionStatus(void) {
 
 
 /* Function: updatePostData
- *    updates the system states of the IR beam and doppler motion variables, and stores
- *    them in the acknowledgement payload ready for transmission
+ *    Updates the states of the PIR and doppler motion variables.
  */
-void updatePostData(void) 
+void updateNodeData(void) 
 {
   // if receive beam mode selected, check state of beam-break
   if (IR_MOTION_ON == true) pirMotionUpdate();
@@ -114,13 +113,12 @@ void updatePostData(void)
 
 
 /* Function: pirMotionUpdate
- *    Updates the IR motion status in smartPostData[POST_ID][1] based on 
- *    the sensed IR motion data.
+ *    Updates the IR motion status based on the sensed IR motion data.
  */
 void pirMotionUpdate(void) {
 
   
-  // if beam break detected - raise flag and update post structure data
+  // if PIR motion detected - raise flag and update flag
   if (IRMotionStarted) {
     IRMotion = true;
 
@@ -145,8 +143,7 @@ void pirMotionUpdate(void) {
 
 
 /* Function: dopplerMotionUpdate
- *    Updates the doppler motion status in smartPostData[POST_ID][2] based on 
- *    the sensed radar data.
+ *    Updates the doppler motion status based on the sensed radar data.
  */
 void dopplerMotionStatus(void) {
   
@@ -175,7 +172,7 @@ void dopplerMotionStatus(void) {
 
 /* Function: senseAndDelay
  *    Custom delay to allow concurrent activities during program delays. Performs a continuous
- *    update of sensed IR motion, doppler motion and radio request checks for the delay period
+ *    update of sensed doppler motion - future support for radio comms checks.
  */
 void senseAndDelay(unsigned long duration)
 {
