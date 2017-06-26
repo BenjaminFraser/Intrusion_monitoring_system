@@ -13,8 +13,8 @@
  *************************************************************************/
 
 // include external libs for nrf24l01+ radio transceiver communications
-#include <RF24.h> 
-#include <SPI.h> 
+#include <RF24.h>
+#include <SPI.h>
 #include <nRF24l01.h>
 #include <printf.h>
 
@@ -46,34 +46,34 @@ unsigned long lastSentTime;
  */
 void setup()
 {
-  // setup serial communications for basic program display
-  Serial.begin(9600);
-  Serial.println("[*][*][*] Beginning nRF24L01+ master-multiple-slave program [*][*][*]");
-
-  // ----------------------------- RADIO SETUP CONFIGURATION AND SETTINGS -------------------------// 
-
-  // begin radio object
-  radio.begin();
-  
-  // set power level of the radio
-  radio.setPALevel(RF24_PA_LOW);
-
-  // set RF datarate - lowest rate for longest range capability
-  radio.setDataRate(RF24_250KBPS);
-
-  // set radio channel to use - ensure all slaves match this
-  radio.setChannel(0x76);
-
-  // set time between retries and max no. of retries
-  radio.setRetries(4, 10);
-
-  // enable ack payload - each slave replies with sensor data using this feature
-  radio.enableAckPayload();
-
-  // setup a write pipe to remote node - must match the node listening pipe
-  radio.openWritingPipe(nodeAddress);
-
-  // --------------------------------------------------------------------------------------------//
+    // setup serial communications for basic program display
+    Serial.begin(9600);
+    Serial.println("[*][*][*] Beginning nRF24L01+ master-single slave program [*][*][*]");
+    
+    // ----------------------------- RADIO SETUP CONFIGURATION AND SETTINGS -------------------------//
+    
+    // begin radio object
+    radio.begin();
+    
+    // set power level of the radio
+    radio.setPALevel(RF24_PA_LOW);
+    
+    // set RF datarate - lowest rate for longest range capability
+    radio.setDataRate(RF24_250KBPS);
+    
+    // set radio channel to use - ensure all slaves match this
+    radio.setChannel(0x66);
+    
+    // set time between retries and max no. of retries
+    radio.setRetries(4, 10);
+    
+    // enable ack payload - each slave replies with sensor data using this feature
+    radio.enableAckPayload();
+    
+    // setup a write pipe to remote node - must match the node listening pipe
+    radio.openWritingPipe(nodeAddress);
+    
+    // --------------------------------------------------------------------------------------------//
 }
 
 
@@ -88,7 +88,7 @@ void loop()
     
     // collect sensor data from all nodes
     receiveNodeData();
-
+    
     lastSentTime = millis();
 }
 
@@ -96,41 +96,41 @@ void loop()
 /* Function: receiveNodeData
  *    Make a radio call to each node in turn and retreive a message from each
  */
-void receiveNodeData() 
+void receiveNodeData()
 {
     Serial.print("[*] Master unit has successfully sent and received data ");
     Serial.print(masterSendCount);
     Serial.println(" times.");
-
+    
     Serial.println("[*] Attempting to transmit data to remote node.");
     Serial.print("[*] The master unit count being sent is: ");
     Serial.println(masterSendCount);
-
+    
     // boolean to indicate if radio.write() tx was successful
     bool tx_sent;
     tx_sent = radio.write( &masterSendCount, sizeof(masterSendCount) );
-
+    
     // if tx success - receive and read smart-post ack reply
     if (tx_sent) {
         if (radio.isAckPayloadAvailable()) {
-
+            
             // read ack payload and copy sensor status to remotePostData array
             radio.read(&remoteNodeData, sizeof(remoteNodeData));
-
+            
             Serial.print("[+] Successfully received data from  remote node.");
             Serial.print("  ---- The received count was: ");
-            Serial.println(remoteNodeData[1]); 
-
+            Serial.println(remoteNodeData[1]);
+            
             // iterate command unit count
             if (masterSendCount < 500) {
                 masterSendCount++;
             } else {
-              masterSendCount = 1;
+                masterSendCount = 1;
             }
         }
     }
     else {
-      Serial.print("[-] The transmission to the selected node failed.");
+        Serial.print("[-] The transmission to the selected node failed.");
     }
     Serial.println("--------------------------------------------------------");
- }
+}
