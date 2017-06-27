@@ -29,7 +29,7 @@
 RF24 radio(CE_PIN,CSN_PIN);
 
 // setup radio pipe addresses for each sensor node
-const byte smartNodeAddresses[3][5] = {
+const byte nodeAddresses[3][5] = {
     {'N','O','D','E','1'},
     {'N','O','D','E','2'},
     {'N','O','D','E','3'}
@@ -38,10 +38,10 @@ const byte smartNodeAddresses[3][5] = {
 // integer to store count of successful transmissions
 int masterSendCount = 0;
 
-// simple integer array for each remote node data, in the form { node_id, returned_count }
+// simple integer array for data from each slave node: { node_id, returned_count }
 int remoteNodeData[3][3] = {{1, 1,}, {2, 1}, {3, 1}};
 
-// system operation timing variables - set sendRate to limit transmit rate
+// system operation timing variables - set SEND_RATE to limit transmit rate
 unsigned long currentTime;
 unsigned long lastSentTime;
 
@@ -79,7 +79,7 @@ void setup()
 
 
 /* Function: loop
- *    main loop program for the command post - repeats continuously during system operation
+ *    main loop program for the master device - repeats continuously during operation
  */
 void loop()
 {
@@ -107,7 +107,7 @@ void receiveNodeData()
     for (byte node = 0; node < 3; node++) {
         
         // setup a write pipe to current sensor node - must match the remote node listening pipe
-        radio.openWritingPipe(smartNodeAddresses[node]);
+        radio.openWritingPipe(nodeAddresses[node]);
         
         Serial.print("[*] Attempting to transmit data to node ");
         Serial.println(node + 1);
@@ -118,11 +118,11 @@ void receiveNodeData()
         bool tx_sent;
         tx_sent = radio.write( &masterSendCount, sizeof(masterSendCount) );
         
-        // if tx success - receive and read smart-post ack reply
+        // if tx success - receive and read slave node ack reply
         if (tx_sent) {
             if (radio.isAckPayloadAvailable()) {
                 
-                // read ack payload and copy sensor status to remotePostData array
+                // read ack payload and copy data to relevant remoteNodeData array
                 radio.read(&remoteNodeData[node], sizeof(remoteNodeData[node]));
                 
                 Serial.print("[+] Successfully received data from node: ");
@@ -130,7 +130,7 @@ void receiveNodeData()
                 Serial.print("  ---- The node count received was: ");
                 Serial.println(remoteNodeData[node][1]);
                 
-                // iterate command unit count
+                // iterate master device count - keeps data changing between transmissions
                 if (masterSendCount < 500) {
                     masterSendCount++;
                 } else {

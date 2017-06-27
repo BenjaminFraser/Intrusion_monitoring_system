@@ -111,11 +111,11 @@ void receiveNodeData()
     bool tx_sent;
     tx_sent = radio.write( &masterSendCount, sizeof(masterSendCount) );
 
-    // if tx success - receive and read smart-post ack reply
+    // if tx success - receive and read ack reply
     if (tx_sent) {
         if (radio.isAckPayloadAvailable()) {
 
-            // read ack payload and copy sensor status to remotePostData array
+            // read ack payload and copy data into remoteNodeData
             radio.read(&remoteNodeData, sizeof(remoteNodeData));
 
             Serial.print("[+] Successfully received data from  remote node.");

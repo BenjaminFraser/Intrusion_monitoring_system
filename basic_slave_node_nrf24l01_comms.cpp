@@ -1,13 +1,13 @@
 /*************************************************************************
  * Remote node - nRF24L01+ radio communications                          *
  *      A program to operate a remote-node slave device that sends       *
- *      data to a command unit on a given request message. The radio     *
+ *      data to a master device on a given request message. The radio    *
  *      transceiver used is the nRF24L01+, and it operates using the     *
  *      TMRh20 RF24 library.                                             *
  *                                                                       *
  *      Author: B.D. Fraser                                              *
  *                                                                       *
- *        Last modified: 25/06/2017                                      *
+ *        Last modified: 27/06/2017                                      *
  *                                                                       *
  *************************************************************************/
 
@@ -54,7 +54,7 @@ void setup() {
     
     radio.openReadingPipe(1, nodeAddress);
     
-    // enable ack payload - smart posts reply with data using this feature
+    // enable ack payload - slave replies with data using this feature
     radio.enableAckPayload();
     radio.writeAckPayload(1, &remoteNodeData, sizeof(remoteNodeData));
     
@@ -99,7 +99,7 @@ void updateNodeData(void)
 
 /* Function: radioCheckAndReply
  *    sends the preloaded node data over the nrf24l01+ radio when
- *    a message is received by the command post
+ *    a message is received by the master
  */
 void radioCheckAndReply(void)
 {
