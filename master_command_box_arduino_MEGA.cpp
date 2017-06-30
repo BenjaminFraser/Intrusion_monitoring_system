@@ -19,7 +19,7 @@
  *      dramatically lowered. If Doppler is detected on its own, an      *
  *      amber 'motion' light is triggered for a short period.            *
  *                                                                       *
- *      Author: Benjamin D Fraser                                         *
+ *      Author: Benjamin D Fraser                                        *
  *                                                                       *
  *        Last modified: 30/06/2017                                      *
  *                                                                       *
@@ -56,7 +56,7 @@ const byte nodeAddresses[3][5] = {
                                        };
 
 // initialize the library with the numbers of the interface pins
-LiquidCrystal lcd(0, 1, 5, 4, 3, 2); // LCD pins
+LiquidCrystal lcd(0, 1, 5, 4, 3, 2);
 
 // set LED pins
 byte safeLight = 6;      // output for green LED
