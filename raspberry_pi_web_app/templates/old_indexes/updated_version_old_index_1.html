@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Intrusion Monitoring System web app</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/materialize.css') }}">
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center orange-text">Intrusion Monitoring System</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">Realtime remote sensor detection status and alerts</h5>
+      </div>
+      
+      <br><br>
+
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4 blue lighten-5">
+          <div class="icon-block">
+            <h2 class="center black-text"><i class="material-icons">settings_remote</i></h2>
+            <h4 class="center">Remote Node 1</h4>
+            <h5 class="center">PIR Status: </h5>
+
+              <div class="row center">
+
+                <!--{% if detection %}
+                <a href="http://materializecss.com/getting-started.html" id="pir-node-1" class="btn-large waves-effect waves-light red center">Detection!</a>
+                {% else %}-->
+                <a href="http://materializecss.com/getting-started.html" id="pir-node-1" class="btn-large waves-effect waves-light green center">All clear</a>
+                <!--{% endif %}-->
+              </div>
+
+            <h5 class="center">Doppler Status: </h5>
+            <div class="row center">
+
+                <a href="http://materializecss.com/getting-started.html" id="doppler-node-1" class="btn-large waves-effect waves-light green center">All clear</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m4 blue lighten-4">
+          <div class="icon-block">
+            <h2 class="center black-text"><i class="material-icons">settings_remote</i></h2>
+            <h4 class="center">Remote Node 2</h4>
+
+            <h5 class="center">PIR Status: </h5>
+            <div class="row center">
+                <a href="http://materializecss.com/getting-started.html" id="pir-node-2" class="btn-large waves-effect waves-light green center">All clear</a>
+            </div>
+            <h5 class="center">Doppler Status: </h5>
+            <div class="row center">
+                <a href="http://materializecss.com/getting-started.html" id="doppler-node-2" class="btn-large waves-effect waves-light green center">All clear</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m4 blue lighten-3">
+          <div class="icon-block">
+            <h2 class="center black-text"><i class="material-icons">settings_remote</i></h2>
+            <h4 class="center">Remote Node 3</h4>
+
+            <h5 class="center">PIR Status: </h5>
+            <div class="row center">
+                <a href="http://materializecss.com/getting-started.html" id="pir-node-3" class="btn-large waves-effect waves-light green center">All clear</a>
+            </div>
+            <h5 class="center">Doppler Status: </h5>
+            <div class="row center">
+                <a href="http://materializecss.com/getting-started.html" id="doppler-node-3" class="btn-large waves-effect waves-light green center">All clear</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12 m4 blue lighten-5">
+          <div class="icon-block">
+            <h2 class="center black-text"><i class="material-icons">settings_remote</i></h2>
+            <h4 class="center">Remote Node 4</h4>
+            <h5 class="center">PIR Status: </h5>
+            <div class="row center">
+                <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light green center">All clear</a>
+            </div>
+            <h5 class="center">Doppler Status: </h5>
+            <div class="row center">
+                <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light green center">All clear</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m4 blue lighten-4">
+          <div class="icon-block">
+            <h2 class="center black-text"><i class="material-icons">settings_remote</i></h2>
+            <h4 class="center">Remote Node 5</h4>
+
+            <h5 class="center">PIR Status: </h5>
+            <div class="row center">
+                <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light green center">All clear</a>
+            </div>
+            <h5 class="center">Doppler Status: </h5>
+            <div class="row center">
+                <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light green center">All clear</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m4 blue lighten-3">
+          <div class="icon-block">
+            <h2 class="center black-text"><i class="material-icons">settings_remote</i></h2>
+            <h4 class="center">Remote Node 6</h4>
+
+            <h5 class="center">PIR Status: </h5>
+            <div class="row center">
+                <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light green center">All clear</a>
+            </div>
+            <h5 class="center">Doppler Status: </h5>
+            <div class="row center">
+                <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light green center">All clear</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <br><br>
+  </div>
+
+  <footer class="page-footer orange">
+    <div class="container">
+      <div class="row">
+        <div class="col l9 s12">
+          <h5 class="white-text">About the application</h5>
+          <p class="grey-text text-lighten-4">This application is designed to interface with and display the realtime status of up to six remote intrusion detection nodes.</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">More</h5>
+          <ul>
+            <li><a class="white-text" href="#!">App usage guide</a></li>
+            <li><a class="white-text" href="#!">Contact me</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Created by Benjamin D Fraser</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="{{ url_for('static', filename='js/materialize.js') }}"></script>
+
+  <script src="{{ url_for('static', filename='js/init.js') }}"></script>
+
+  <script>
+      $(document).ready(function() {
+
+          // Function to update the state of each node
+          function updateNode(nodeData) {
+
+              // check state of pir - if 11 change to alert
+              if (nodeData.node_1_pir === '11') {
+                  $('#pir-node-1').text('Detection!');
+                  $('#pir-node-1').toggleClass('green', false);
+                  $('#pir-node-1').toggleClass('red', true);
+              }
+              else if (nodeData.node_1_pir === '22') {
+                  $('#pir-node-1').text('All clear');
+                  $('#pir-node-1').toggleClass('green', true);
+                  $('#pir-node-1').toggleClass('red', false);
+              }
+
+              // check state of doppler - if 11 change to alert
+              if (nodeData.node_1_doppler === '11') {
+                  $('#doppler-node-1').text('Detection!');
+                  $('#doppler-node-1').toggleClass('green', false);
+                  $('#doppler-node-1').toggleClass('red', true);
+              }
+              else if (nodeData.node_1_doppler === '22') {
+                  $('#doppler-node-1').text('All clear');
+                  $('#doppler-node-1').toggleClass('green', true);
+                  $('#doppler-node-1').toggleClass('red', false);
+              }
+
+          }
+          // Setup radio receive server sent event receiver.
+          var radioRxSource = new EventSource("{{ url_for('radio_rx') }}");
+          radioRxSource.onmessage = function(e) {
+              var receivedData = JSON.parse(e.data);
+              updateNode(receivedData);
+          }
+          // Set the switch based on the value passed to this template.
+          updateNode('{{ node_data }}');
+      });
+  </script>
+
+  </body>
+</html>

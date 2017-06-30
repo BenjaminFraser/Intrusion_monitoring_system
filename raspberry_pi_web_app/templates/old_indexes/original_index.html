@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Command post monitoring tool</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap basic CSS -->
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    
+
+  <style>
+
+    html, body {
+      height: 100%;
+      color: #4D4D4D ;
+      background-color: #F0FFFF;
+    }
+
+  .animate-img {
+	  display: none;
+  }
+
+  #imageSection {
+      background-color: #F0FFFF;
+    }
+  
+  #mainPage {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-size: cover;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+  }
+
+  #mainText {
+    margin-top: 120px;
+    padding: 10px;
+  }
+
+  #instructionText {
+    font-size: 1.5em;
+  }
+
+  #diagramArea {
+    background: url("{{ url_for('static', filename='images/gradient_background.jpg') }}") no-repeat center center;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+    min-height: 300px;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+</style>
+
+  </head>
+  <body>
+
+    <div class="container" id="mainPage">
+
+      <div class="row" id="mainText">
+
+        <div class="col-md-6 col-md-offset-3 center">
+
+           <h1><strong>Command post security status: </strong></h1>
+
+           {% if detection %}
+               <div class="alert alert-danger" role="alert">
+                  <h1 class="alert-heading"><strong>INTRUSION DETECTED</strong></h1>
+               </div>
+           {% else %}
+               <div class="alert alert-success" role="alert">
+                  <h1 class="alert-heading"><strong>SYSTEM SAFE</strong></h1>
+               </div>
+           {% endif %}
+
+        </div>
+    </div>
+
+    <div class="jumbotron" id="imageSection">
+      <div class="container" id="diagramArea">
+	{% if detection %}
+	  <img src="{{ url_for('static', filename='images/left_beam_fail_1.png') }}" class="img-responsive animate-img" id="diagram_img_1">
+	  <img src="{{ url_for('static', filename='images/safe_beam_2.png') }}" class="img-responsive animate-img" id="diagram_img_2">
+	  <img src="{{ url_for('static', filename='images/left_beam_fail_2.png') }}" class="img-responsive animate-img" id="diagram_img_3">
+	{% else %}
+	  <img src="{{ url_for('static', filename='images/safe_beam_1.png') }}" class="img-responsive animate-img" id="diagram_img_1">
+	  <img src="{{ url_for('static', filename='images/safe_beam_2.png') }}" class="img-responsive animate-img" id="diagram_img_2">
+	  <img src="{{ url_for('static', filename='images/safe_beam_3.png') }}" class="img-responsive animate-img" id="diagram_img_3">
+	{% endif %}
+      </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-8 col-md-offset-2 center">
+        
+           <p class="lead" id="instructionText">System last checked at: {{ time }}</p>
+
+        </div>
+    </div>
+    </div> <!-- mainPage container !-->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+	<!-- set appropriate size window for the web app -->
+    <script type="text/javascript">
+      $(".contentContainer").css("min-height", $(window).height());
+      
+      $('#diagram_img_1').show();
+      
+      setTimeout (
+			function() { window.location.reload(); 
+			}, 10000);
+      
+      // start only after DOM has loaded
+      $(window).on('load', function () {
+		  
+		  // function to cycle through images for animation effect
+		  var CycleImg = { init: function()
+			  {
+				  var imgInterval = 500;
+				  
+				  var imgCount = $('.animate-img').length;
+				  
+				  var currentImg = 0;
+				
+				  $('.animate-img').eq(currentImg).show();
+				  
+				  // loop through each img
+				  var continuousCycle = setInterval(function() {
+					  $('.animate-img').eq(currentImg).hide();
+					  
+					  if (currentImg == imgCount - 1) {
+						  currentImg = 0;
+					  } else {
+						  currentImg++;
+					  }
+				  $('.animate-img').eq(currentImg).show();
+			  }, imgInterval);
+		  }
+	  };
+	  
+	  // run function
+	  CycleImg.init();
+	});	
+	</script>
+   
+  </body>
+</html>
+
