@@ -46,7 +46,6 @@ If you have a similar circuit to this, and experience too much noise/interferenc
 
 If this all sounds like too much hassle or complexity - consider one of the pre-built varients, such as the Parallax HB100 Doppler motion sensor. This has an optimised signal conditioning circuit built-in, so you can get straight to using the Doppler module. 
 
-
 Similar to when a PIR motion is detected, when a Doppler motion detection is made, the Doppler motion status variable (`remoteNodeData[NODE_ID][2]`) is changed from '22' (safe) to '11' (alert).
 
 As you can see, each state of detection is stored in a two-dimensional array of integers. This was created simply as a means of effectively storing the detected data. It also works nicely, since each node program is precisely the same, except the global variable NODE_ID is set to the desired node identification for that specific node. No two nodes should have the same ID, and for a system of 3 nodes, the id's should be 0, 1 and 2. Similarly, for a system of 6 nodes, the IDs would be 0, 1, 2, 3, 4, and 5.
@@ -76,7 +75,7 @@ int remoteNodeData[3][3] = {{1, 22, 22}, {2, 22, 22},
                             {5, 22, 22}},{6, 22, 22}};
 ```
 
-![remote node basic components](project_pictures/basic_node_detector_components?raw=True "Remote node detector - typical components.")
+![remote node basic components](project_pictures/basic_node_detector_components.jpg?raw=True "Remote node detector - typical components.")
 
 ----------
 
