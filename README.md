@@ -14,6 +14,8 @@ The master device within this project has been made multiple times, to demonstra
 
 2. The second, more advanced design, uses a Raspberry Pi microcomputer to create a full web server application. This application is built using Python and the Flask micro-framework, along with various external libraries. HTML, CSS and JavaScript are used for client side design, including usage of the Materialize CSS framework for enhanced front-end compatibility and display. A manually configured baseline installation of Raspbian Linux is used with the Raspberry Pi to achieve this design. A great feature added to this design was the ability to host a local WiFi hotspot, which allows authenticated users to log onto the Intrusion monitoring app and view its status.
 
+![system overview diagram](project_pictures/system_overview.jpg)
+
 ----------
 
 ## ACCESSING THE APPLICATION/SYSTEM
