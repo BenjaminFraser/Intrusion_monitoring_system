@@ -16,6 +16,8 @@ The master device within this project has been made multiple times, to demonstra
 
 ![system overview diagram](project_pictures/system_overview.jpg?raw=True "System overview - using the advanced form of master device with Raspberry Pi.")
 
+![web application demo](project_pictures/demo_picture.jpg?raw=True "Demo of the Flask Web application.")
+
 ----------
 
 ## ACCESSING THE APPLICATION/SYSTEM
