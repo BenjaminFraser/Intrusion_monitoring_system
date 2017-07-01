@@ -14,7 +14,7 @@ The master device within this project has been made multiple times, to demonstra
 
 2. The second, more advanced design, uses a Raspberry Pi microcomputer to create a full web server application. This application is built using Python and the Flask micro-framework, along with various external libraries. HTML, CSS and JavaScript are used for client side design, including usage of the Materialize CSS framework for enhanced front-end compatibility and display. A manually configured baseline installation of Raspbian Linux is used with the Raspberry Pi to achieve this design. A great feature added to this design was the ability to host a local WiFi hotspot, which allows authenticated users to log onto the Intrusion monitoring app and view its status.
 
-![system overview diagram](project_pictures/system_overview.jpg)
+![system overview diagram](project_pictures/system_overview.jpg?raw=True "System overview - using the advanced form of master device with Raspberry Pi.")
 
 ----------
 
@@ -28,9 +28,26 @@ To setup the system for use, you'll need to acquire several Arduino microcontrol
 
 This program is designed to use with the Arduino UNO micro-controller, the NRF24L01+ radio transceiver unit, a custom built HB100 doppler motion detector, and a Passive Infrared (PIR) motion sensor. Each node interfaces with a centrally operated master device unit using radio communications. The master device also uses nRF24L01+ communications, and can be any device you like. For this project, two varients of master device are used - one using Arduino MEGA and one using a Raspberry Pi.    
 
+PIR sensing is achieved using basic PIR sensing modules, typically constructed like so:
+
+![Basic PIR sensor](project_pictures/basic_PIR_sensor.jpg?raw=True "Basic PIR sensing module - features and pin layout.")
+
 When a PIR motion detection is made, the PIR motion status variable (`remoteNodeData[NODE_ID][1]`) is changed from '22' (safe) to '11' (alert).
 
-Likewise, when a Doppler motion detection is made, the Doppler motion status variable (`remoteNodeData[NODE_ID][2]`) is changed from '22' (safe) to '11' (alert).
+Doppler motion sensing is achieved using the HB100 X-Band Radar sensing modules. These work on the principle of the doppler effect, which is the apparent change of frequency of a signal due to relative motion that takes place between a source (transmitter) and observer (receiver). The typical frequency change that arises due to human motion of a 10.525 GHz signal (as used by the HB100) is less than 100 Hz, so it follows that we're only interested in signals of less than 100 Hz. The output of the HB100 module is also extremely noisy and low level (microvolts) by default. For these reasons, we need to develop a signal conditioning circuit to process the output, prior to feeding it to our microcontroller.
+
+![HB100 module and custom circuit](project_pictures/hb100_custom_circuit.jpg?raw=True "HB100 module and associated signal conditioning circuit.")
+
+The very basic form of a signal conditioning circuit, which will amplify the output of the HB100 module by 12200, along with filter frequencies below 100 Hz (its cutoff frequency is actually lower - approx 72 Hz), is shown below.
+
+![HB100 basic signal conditioning circuit](project_pictures/hb100_signal_conditioning_circuit.jpg?raw=True "HB100 basic signal conditioning circuit")
+
+If you have a similar circuit to this, and experience too much noise/interference, the most likely issue is your power supply. If powering directly from the Arduino, consider a seperate, regulated 5 V supply exclusively for the doppler sensor and its conditioning. Otherwise, you can expand on this circuit, and add a late stage comparator to convert the sinusoidal output into a nice, clean square wave output, suitable for measurement by our microcontroller.
+
+If this all sounds like too much hassle or complexity - consider one of the pre-built varients, such as the Parallax HB100 Doppler motion sensor. This has an optimised signal conditioning circuit built-in, so you can get straight to using the Doppler module. 
+
+
+Similar to when a PIR motion is detected, when a Doppler motion detection is made, the Doppler motion status variable (`remoteNodeData[NODE_ID][2]`) is changed from '22' (safe) to '11' (alert).
 
 As you can see, each state of detection is stored in a two-dimensional array of integers. This was created simply as a means of effectively storing the detected data. It also works nicely, since each node program is precisely the same, except the global variable NODE_ID is set to the desired node identification for that specific node. No two nodes should have the same ID, and for a system of 3 nodes, the id's should be 0, 1 and 2. Similarly, for a system of 6 nodes, the IDs would be 0, 1, 2, 3, 4, and 5.
 
@@ -58,6 +75,9 @@ int remoteNodeData[3][3] = {{1, 22, 22}, {2, 22, 22},
                             {3, 22, 22}},{4, 22, 22}, 
                             {5, 22, 22}},{6, 22, 22}};
 ```
+
+![remote node basic components](project_pictures/basic_node_detector_components?raw=True "Remote node detector - typical components.")
+
 ----------
 
 ## GUIDE TO ARDUINO MEGA MASTER DEVICE
@@ -77,6 +97,8 @@ On reception of a HIGH (int '11') PIR and Doppler motion detect the system shows
 ## SERVER SOFTWARE, CONFIGURATIONS AND CHANGES MADE TO RASPBERRY PI
 
 - coming soon
+
+![Basic web app demonstration](project_pictures/basic_app_ipad.jpg?raw=True "Basic Web app being used on iPad.")
 
 
 ----------
