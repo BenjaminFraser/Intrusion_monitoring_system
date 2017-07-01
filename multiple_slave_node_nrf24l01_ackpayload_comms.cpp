@@ -3,7 +3,9 @@
  *      A program to operate a remote-node slave device that sends       *
  *      data to a command unit on a given request message. The radio     *            
  *      transceiver used is the nRF24L01+, and it operates using the     *
- *      TMRh20 RF24 library.                                             *
+ *      TMRh20 RF24 library. For this program there can be up to three   *
+ *      remote slave devices, where each one has either 0, 1, or 2 as    *
+ *      its unique NODE_ID                                               *
  *                                                                       *
  *      Author: B.D. Fraser                                              *
  *                                                                       *
