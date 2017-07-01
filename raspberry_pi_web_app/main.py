@@ -12,6 +12,7 @@ from lib_nrf24 import NRF24
 # import lib for interfacing with SPI devices
 import spidev
 
+# import defined PiRadio and MasterData custom classes from helper_classes.py
 import helper_classes
 
 app = Flask(__name__)
@@ -24,6 +25,7 @@ MasterData = helper_classes.NodeData()
 @app.route('/')
 @app.route('/home')
 def display_security_page():
+    """ Displays the main web app interface to a client on request """
 
     # create a timecheck for confirmation of up-to-date check
     timeCheck = datetime.datetime.now()
@@ -47,7 +49,6 @@ def display_security_page():
                             'node_1_doppler' : MasterData.node_1['doppler_motion']
                             }
                 }
-
     return render_template('index.html', **inputData)
 
 
@@ -57,6 +58,7 @@ def radio_rx():
         two seconds. The data is sent as Server-Sent Event (SSE) stream that 
         puts the data in a JSON format, that must be parsed by the client.
         It passes the most up-to-date states of the node pir and doppler.
+        This SSE if requested from javascript in the index.html template file.
     """
     def read_radio_rx():
         while True:
