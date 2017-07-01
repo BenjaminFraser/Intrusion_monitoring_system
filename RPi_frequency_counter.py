@@ -1,13 +1,24 @@
+# An example of using the Raspberry Pi as a motion sensing device using the 
+# HB100 X-Band Radar Doppler sensor with an appropriate signal conditioning
+# circuit (or simply use the Parallax varient with one pre-built)
+
 #!/usr/bin/python
+
 import RPi.GPIO as GPIO
 
 import time
 
+# X-band radar sensing output connected to GPIO 27 of Rpi
 HB100_INPUT_PIN = 27
 
+# configure GPIO pins for input into GPIO 27
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(HB100_INPUT_PIN, GPIO.IN)
 
+# sample global vars for adjustment of sensitivity/measurements
+#   - A greater max-pulse-count will count more pulse inputs, leading
+#     to more averaged doppler frequency - it will also take longer
+#   - A higher motion-sensitivity will reduce false motion readings
 MAX_PULSE_COUNT = 10
 MOTION_SENSITIVITY = 10
 
